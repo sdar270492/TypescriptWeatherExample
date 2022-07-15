@@ -34,14 +34,19 @@ let objLoad = {
 let getApiWeather = async () => {    
 
     const city = getCity();
+    objLoad.start();
     await getWeather(city)
         .then((res)=>{
             if (res.cod === '404') {
                 console.log(res.message);
             }else {
+                // setInterval(() => {
                 buttonClick?.setAttribute('disabled', 'disabled');
                 updateInteface(res);
                 buttonClick?.removeAttribute('disabled');
+                objLoad.stop();
+                // }, 5000);
+                
             }
         })
         .catch((e) => console.log(e));
